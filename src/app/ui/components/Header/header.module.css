@@ -4,6 +4,8 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    position: fixed;
+    top: 0px;
 
     background-color: black;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
@@ -12,22 +14,5 @@
 .header__title {
     color: white;
     font-size: 22px;
-}
-
-.header__bttn {
-    padding: 15px;
-    border: 2px solid white;
-    color: white;
-    background-color: black;
-    border-radius: 15px;
-    font-size: 16px;
-    font-weight: bold;
-    
-
-}
-
-.header__bttn:hover {
-    color: black;
-    background-color: white;
 }
 
