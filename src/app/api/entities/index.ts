@@ -1,3 +1,3 @@
-import { Email } from "./Email.entity";
+import { Email } from "./Email.entity.ts";
 
 export { Email };

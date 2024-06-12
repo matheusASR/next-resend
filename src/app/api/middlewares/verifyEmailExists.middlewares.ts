@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { Email } from "../entities";
-import { emailRepository } from "../repositories";
-import { AppError } from "../App.error";
+import { Email } from "../entities/index.ts";
+import { emailRepository } from "../repositories/index.ts";
+import { AppError } from "../App.error.ts";
 
 export const verifyEmailExists = async (
   req: Request,

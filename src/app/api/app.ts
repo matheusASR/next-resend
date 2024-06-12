@@ -2,8 +2,8 @@ import "reflect-metadata";
 import "express-async-errors";
 import express, { Application, json } from "express";
 import cors from "cors";
-import { emailRouter } from "./routers";
-import middlewares from "./middlewares";
+import { emailRouter } from "./routers/index.ts";
+import middlewares from "./middlewares/index.ts";
 
 const app: Application = express();
 app.use(json());

@@ -1,9 +1,9 @@
 import { z } from "zod";
 import {
     emailSchema, emailCreateSchema
-} from "../schemas/email.schemas";
+} from "../schemas/index.ts";
 import { Repository } from "typeorm";
-import { Email } from "../entities/Email.entity";
+import { Email } from "../entities/index.ts";
 
 type IEmail = z.infer<typeof emailSchema>;
 type EmailCreate = z.infer<typeof emailCreateSchema>

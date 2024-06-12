@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev:next": "next dev",
-    "dev:api": "ts-node-dev --cls --rs --ignore-watch node_modules src/app/api/server.ts",
+    "dev:api": "node --loader ts-node/esm ./src/app/api/server.ts",
     "dev": "concurrently \"npm run dev:next\" \"npm run dev:api\"",
     "typeorm": "typeorm-ts-node-commonjs",
     "vercel-build": "npm run typeorm migration:run -- -d ./src/app/api/data-source",
@@ -12,6 +12,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "type": "module",
   "dependencies": {
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
@@ -26,6 +27,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.9.2",
     "typeorm": "^0.3.17",
     "zod": "^3.21.4"
   },

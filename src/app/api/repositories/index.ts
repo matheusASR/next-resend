@@ -1,4 +1,4 @@
-import emailRepository from "./email.repository";
+import emailRepository from "./email.repository.ts";
 
 export {
     emailRepository

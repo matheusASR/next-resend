@@ -1,18 +1,23 @@
-import { DataSource, DataSourceOptions } from "typeorm";
-import path from "path";
-import "reflect-metadata";
-import "dotenv/config";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import 'reflect-metadata';
+import 'dotenv/config';
+
+// Defina __dirname manualmente
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const settings = (): DataSourceOptions => {
-  const entitiesPath: string = path.join(__dirname, "./entities/**.{ts,js}");
-  const migrationPath: string = path.join(__dirname, "./migrations/**.{ts,js}");
+  const entitiesPath: string = join(__dirname, './entities/**/*.{ts,js}');
+  const migrationPath: string = join(__dirname, './migrations/**/*.{ts,js}');
 
   const dbUrl: string | undefined = process.env.DATABASE_URL;
 
   if (!dbUrl) throw new Error("Missing env var: 'DATABASE_URL'");
 
   return {
-    type: "postgres",
+    type: 'postgres',
     url: dbUrl,
     logging: true,
     entities: [entitiesPath],

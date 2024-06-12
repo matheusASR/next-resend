@@ -1,3 +1,3 @@
-import emailServices from "./email.services";
+import emailServices from "./email.services.ts";
 
 export { emailServices }

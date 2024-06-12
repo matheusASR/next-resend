@@ -1,6 +1,6 @@
 import { Router } from "express";
-import middlewares from "../middlewares";
-import { emailControllers } from "../controllers";
+import middlewares from "../middlewares/index.ts";
+import { emailControllers } from "../controllers/index.ts";
 
 export const emailRouter: Router = Router();
 

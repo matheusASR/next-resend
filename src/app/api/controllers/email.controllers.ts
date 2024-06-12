@@ -1,9 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { Request, Response } from "express";
-import { emailServices } from "../services";
-import { EmailCreate, IEmail } from "../interfaces";
+import { emailServices } from "../services/index.ts";
+import { EmailCreate, IEmail } from "../interfaces/index.ts";
 import { DeepPartial } from "typeorm";
-import { emailRepository } from "../repositories";
+import { emailRepository } from "../repositories/index.ts";
 
 const create = async (req: Request, res: Response): Promise<Response> => {
   const payload: EmailCreate = req.body

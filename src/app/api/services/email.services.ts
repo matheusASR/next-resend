@@ -1,9 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { EmailCreate, IEmail } from "../interfaces";
-import { emailRepository } from "../repositories";
-import { emailSchema } from "../schemas";
+import { EmailCreate, IEmail } from "../interfaces/index.ts";
+import { emailRepository } from "../repositories/index.ts";
+import { emailSchema } from "../schemas/index.ts";
 import { DeepPartial } from "typeorm";
-import { Email } from "../entities";
+import { Email } from "../entities/index.ts";
 
 const create = async (payload: EmailCreate): Promise<IEmail> => {
   const emailCreated: any = emailRepository.create(payload);
