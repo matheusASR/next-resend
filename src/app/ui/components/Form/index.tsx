@@ -22,6 +22,7 @@ interface FormData {
     hour: string;
     minute: string;
   };
+  receivers: Field[]; // Adicionando campo receivers ao FormData
 }
 
 export default function Form() {
@@ -35,6 +36,7 @@ export default function Form() {
     body: "",
     date: { day: "", month: "", year: "" },
     time: { hour: "", minute: "" },
+    receivers: [{ name: "", email: "" }], // Inicializando receivers com um campo vazio
   });
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +46,10 @@ export default function Form() {
   const handleAddFields = (event: FormEvent) => {
     event.preventDefault();
     setFields([...fields, { name: "", email: "" }]);
+    setFormData({
+      ...formData,
+      receivers: [...fields, { name: "", email: "" }],
+    });
   };
 
   const handleRemoveLastField = (event: FormEvent) => {
@@ -52,6 +58,10 @@ export default function Form() {
       const values = [...fields];
       values.pop();
       setFields(values);
+      setFormData({
+        ...formData,
+        receivers: values,
+      });
     }
   };
 
@@ -73,6 +83,10 @@ export default function Form() {
     const newFields = [...fields];
     newFields[index][name as keyof Field] = value;
     setFields(newFields);
+    setFormData({
+      ...formData,
+      receivers: newFields,
+    });
   };
 
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
