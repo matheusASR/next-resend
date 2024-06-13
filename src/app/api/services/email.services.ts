@@ -5,7 +5,7 @@ import { emailSchema } from "../schemas/index.ts";
 import { DeepPartial } from "typeorm";
 import { Email } from "../entities/index.ts";
 
-const create = async (payload: EmailCreate): Promise<IEmail> => {
+const create = async (payload: any): Promise<IEmail> => {
   const emailCreated: any = emailRepository.create(payload);
   await emailRepository.save(emailCreated);
 
@@ -30,9 +30,9 @@ const retrieve = async (id: number): Promise<IEmail> => {
 };
 
 const update = async (
-  foundemail: IEmail | null,
+  foundemail: any,
   payload: DeepPartial<IEmail>
-): Promise<IEmail> => {
+): Promise<any> => {
   return emailSchema.parse(
     await emailRepository.save({ ...foundemail, ...payload })
   );

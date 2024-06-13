@@ -1,42 +1,42 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
 import styles from "./form.module.css";
+import { api } from "@/api";
 
 interface Field {
-  name: string;
-  email: string;
+  name: any;
+  email: any;
 }
 
 interface FormData {
-  campaignName: string;
+  campaign_name: string;
   type: string;
   sender: string;
   subject: string;
   body: string;
-  date: {
-    day: string;
-    month: string;
-    year: string;
-  };
-  time: {
-    hour: string;
-    minute: string;
-  };
-  receivers: Field[]; // Adicionando campo receivers ao FormData
+  date_day: string;
+  date_month: string;
+  date_year: string;
+  time_hour: string;
+  time_minute: string;
+  receivers: Field[];
 }
 
 export default function Form() {
   const [fields, setFields] = useState<Field[]>([{ name: "", email: "" }]);
   const [agendar, setAgendar] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    campaignName: "",
+    campaign_name: "",
     type: "",
     sender: "",
     subject: "",
     body: "",
-    date: { day: "", month: "", year: "" },
-    time: { hour: "", minute: "" },
-    receivers: [{ name: "", email: "" }], // Inicializando receivers com um campo vazio
+    date_day: "",
+    date_month: "",
+    date_year: "",
+    time_hour: "",
+    time_minute: "",
+    receivers: [{ name: "", email: "" }],
   });
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,10 +46,6 @@ export default function Form() {
   const handleAddFields = (event: FormEvent) => {
     event.preventDefault();
     setFields([...fields, { name: "", email: "" }]);
-    setFormData({
-      ...formData,
-      receivers: [...fields, { name: "", email: "" }],
-    });
   };
 
   const handleRemoveLastField = (event: FormEvent) => {
@@ -58,10 +54,6 @@ export default function Form() {
       const values = [...fields];
       values.pop();
       setFields(values);
-      setFormData({
-        ...formData,
-        receivers: values,
-      });
     }
   };
 
@@ -93,10 +85,7 @@ export default function Form() {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      date: {
-        ...formData.date,
-        [name]: value,
-      },
+      [name]: value,
     });
   };
 
@@ -104,21 +93,33 @@ export default function Form() {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      time: {
-        ...formData.time,
-        [name]: value,
-      },
+      [name]: value,
     });
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const data = {
       ...formData,
-      receivers: fields,
+      receivers: fields, 
     };
     console.log("Form Data Submitted:", data);
-    // Aqui você pode adicionar o código para enviar os dados para o servidor, se necessário
+    try {
+      const response = await api.post("/emails", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 200) {
+        alert("Email criado com sucesso!");
+      }
+    } catch (error: any) {
+      console.error(
+        "Erro ao criar email:",
+        error.response?.data || error.message
+      );
+      alert("Ocorreu um erro ao criar email");
+    }
   };
 
   return (
@@ -130,8 +131,8 @@ export default function Form() {
         <input
           className={styles.form__container__input}
           type="text"
-          name="campaignName"
-          value={formData.campaignName}
+          name="campaign_name"
+          value={formData.campaign_name}
           onChange={handleInputChange}
         />
       </div>
@@ -245,24 +246,24 @@ export default function Form() {
               <input
                 className={styles.form__container__inputalt}
                 type="number"
-                name="day"
-                value={formData.date.day}
+                name="date_day"
+                value={formData.date_day}
                 onChange={handleDateChange}
               />
               <p className={styles.inputalt__simbol}>/</p>
               <input
                 className={styles.form__container__inputalt}
                 type="number"
-                name="month"
-                value={formData.date.month}
+                name="date_month"
+                value={formData.date_month}
                 onChange={handleDateChange}
               />
               <p className={styles.inputalt__simbol}>/</p>
               <input
                 className={styles.form__container__inputalt}
                 type="number"
-                name="year"
-                value={formData.date.year}
+                name="date_year"
+                value={formData.date_year}
                 onChange={handleDateChange}
               />
             </div>
@@ -275,16 +276,16 @@ export default function Form() {
               <input
                 className={styles.form__container__inputalt}
                 type="number"
-                name="hour"
-                value={formData.time.hour}
+                name="time_hour"
+                value={formData.time_hour}
                 onChange={handleTimeChange}
               />
               <p className={styles.inputalt__simbol}>:</p>
               <input
                 className={styles.form__container__inputalt}
                 type="number"
-                name="minute"
-                value={formData.time.minute}
+                name="time_minute"
+                value={formData.time_minute}
                 onChange={handleTimeChange}
               />
             </div>

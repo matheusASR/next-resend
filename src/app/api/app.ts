@@ -7,7 +7,7 @@ import middlewares from "./middlewares/index.ts";
 
 const app: Application = express();
 app.use(json());
-const allowedOrigins = [""];
+const allowedOrigins = ["http://localhost:3000"];
 
 const corsOptions = {
   origin: function (origin: any, callback: any) {
@@ -23,7 +23,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use("/email", emailRouter);
+app.use("/emails", emailRouter);
 
 app.use(middlewares.handleError);
 
