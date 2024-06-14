@@ -1,6 +1,30 @@
 .emailpreview__container {
-    height: 500px;
+    height: 600px;
     width: 30%;
     border: 1px solid black;
     border-radius: 15px;
+}
+
+.emailpreview__header {
+    height: 60px;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.emailpreview__headertitle {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.emailpreview__contentcontainer {
+    height: 100%;
+    width: 100%;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }

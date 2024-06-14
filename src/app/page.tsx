@@ -4,12 +4,18 @@ import EmailPreview from "./ui/components/EmailPreview";
 import Form from "./ui/components/Form";
 import Header from "./ui/components/Header";
 import styles from "./ui/page.module.css";
-import { EmailPreviewContext, EmailPreviewProvider } from "./ui/providers/emailPreviewContext";
+import {
+  EmailPreviewContext,
+  EmailPreviewProvider,
+} from "./ui/providers/emailPreviewContext";
+import { EmailCreateProvider } from "./ui/providers/emailCreateContext";
 
 export default function SendEmail() {
   return (
     <EmailPreviewProvider>
-      <SendEmailContent />
+      <EmailCreateProvider>
+        <SendEmailContent />
+      </EmailCreateProvider>
     </EmailPreviewProvider>
   );
 }
@@ -22,11 +28,7 @@ function SendEmailContent() {
       <Header />
       <main className={styles.main}>
         <Form />
-        {active ? (
-          <EmailPreview />
-        ) : (
-          <></>
-        )}
+        {active ? <EmailPreview /> : <></>}
       </main>
     </>
   );
