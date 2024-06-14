@@ -1,17 +1,28 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useContext } from "react";
 import styles from "./form.module.css";
 import { api } from "@/api";
+import { EmailPreviewContext } from "../../providers/emailPreviewContext";
 
 export default function Form() {
+  const { setActive, active } = useContext(EmailPreviewContext);
   const [fields, setFields] = useState<any[]>([{ name: "", email: "" }]);
   const [agendar, setAgendar] = useState(false);
+  const [inputType, setInputType] = useState("manual");
+  const [bodyType, setBodyType] = useState("creator");
+  const [links, setLinks] = useState<string[]>([""]);
+  const [addButton, setAddButton] = useState(false);
+  const [addLinks, setAddLinks] = useState(false);
   const [formData, setFormData] = useState<any>({
     campaign_name: "",
     type: "",
     sender: "",
     subject: "",
     body: "",
+    image: "",
+    button_name: "",
+    button_color: "",
+    button_link: "",
     date_day: "",
     date_month: "",
     date_year: "",
@@ -20,8 +31,20 @@ export default function Form() {
     receivers: [{ name: "", email: "" }],
   });
 
+  const showPreview = () => {
+    setActive(true);
+  };
+
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAgendar(e.target.value === "sim");
+  };
+
+  const handleInputTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputType(e.target.value);
+  };
+
+  const handleBodyTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setBodyType(e.target.value);
   };
 
   const handleAddFields = (event: FormEvent) => {
@@ -36,6 +59,30 @@ export default function Form() {
       values.pop();
       setFields(values);
     }
+  };
+
+  const handleAddLink = (event: FormEvent) => {
+    event.preventDefault();
+    setLinks([...links, ""]);
+  };
+
+  const handleRemoveLastLink = (event: FormEvent) => {
+    event.preventDefault();
+    if (links.length > 1) {
+      const newLinks = [...links];
+      newLinks.pop();
+      setLinks(newLinks);
+    }
+  };
+
+  const handleLinkChange = (
+    index: number,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.target;
+    const newLinks = [...links];
+    newLinks[index] = value;
+    setLinks(newLinks);
   };
 
   const handleInputChange = (
@@ -75,11 +122,45 @@ export default function Form() {
     });
   };
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type === "text/html") {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFormData({
+          ...formData,
+          body: reader.result as string,
+        });
+      };
+      reader.readAsText(file);
+    } else if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFormData({
+          ...formData,
+          image: reader.result as string,
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Por favor, faça upload de um arquivo válido.");
+    }
+  };
+
+  const handleAddButtonChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAddButton(e.target.value === "sim");
+  };
+
+  const handleAddLinksChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAddLinks(e.target.value === "sim");
+  };
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const data = {
       ...formData,
       receivers: fields,
+      links: links.filter((link) => link !== ""),
     };
     console.log("Form Data Submitted:", data);
     try {
@@ -144,55 +225,251 @@ export default function Form() {
           onChange={handleInputChange}
         />
       </div>
-      <div className={styles.form__container__div}>
-        <textarea
-          className={styles.form__container__textarea}
-          placeholder="Corpo do email..."
-          name="body"
-          value={formData.body}
-          onChange={handleInputChange}
-        />
+      <div className={styles.form__container__divAlt}>
+        <label>Qual será o modelo do corpo do email?</label>
+        <span>
+          <input
+            type="radio"
+            name="bodyType"
+            value="html"
+            onChange={handleBodyTypeChange}
+          />{" "}
+          Arquivo HTML
+        </span>
+        <span>
+          <input
+            type="radio"
+            name="bodyType"
+            value="creator"
+            onChange={handleBodyTypeChange}
+            defaultChecked
+          />{" "}
+          Criador de Email
+        </span>
       </div>
-      <div className={styles.form__container__receivers}>
-        <div className={styles.form__container__divreceivers}>
-          <label className={styles.form__container__label}>Destinatários</label>
+
+      {bodyType === "html" ? (
+        <div className={styles.form__container__div}>
+          <input
+            type="file"
+            name="file"
+            accept=".html"
+            onChange={handleFileChange}
+          />
         </div>
-        <div className={styles.form__container__divreceiversdata}>
-          {fields.map((field, index) => (
-            <div key={index} className={styles.fieldSet}>
+      ) : (
+        <div>
+          <div className={styles.form__container__divAlt}>
+            <label>Insira aqui a imagem de banner</label>
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+          </div>
+          <div className={styles.form__container__divAlt}>
+            <textarea
+              className={styles.form__container__textarea}
+              placeholder="Corpo do email..."
+              name="body"
+              value={formData.body}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className={styles.form__container__divAlt}>
+            <label>Deseja inserir algum link?</label>
+            <span>
               <input
-                type="text"
-                name="name"
-                placeholder="Nome"
-                value={field.name}
-                className={styles.input__receivers}
-                onChange={(e) => handleFieldChange(index, e)}
-              />
+                type="radio"
+                name="addLinks"
+                value="sim"
+                onChange={handleAddLinksChange}
+              />{" "}
+              Sim
+            </span>
+            <span>
               <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={field.email}
-                className={styles.input__receivers}
-                onChange={(e) => handleFieldChange(index, e)}
-              />
+                type="radio"
+                name="addLinks"
+                value="nao"
+                onChange={handleAddLinksChange}
+              />{" "}
+              Não
+            </span>
+          </div>
+          {addLinks && (
+            <div className={styles.form__container__divlinks}>
+              {links.map((link, index) => (
+                <div key={index}>
+                  <input
+                    type="text"
+                    name={`link${index}`}
+                    value={link}
+                    placeholder="Link"
+                    onChange={(e) => handleLinkChange(index, e)}
+                    className={styles.input__link}
+                  />
+                </div>
+              ))}
+              <div className={styles.buttonsContainer}>
+                <button onClick={handleAddLink} className={styles.addButton}>
+                  +
+                </button>
+                <button
+                  onClick={handleRemoveLastLink}
+                  className={styles.removeButton}
+                  disabled={links.length === 1}
+                >
+                  -
+                </button>
+              </div>
             </div>
-          ))}
+          )}
+          <div className={styles.form__container__divAlt}>
+            <label>Deseja adicionar algum botão?</label>
+            <span>
+              <input
+                type="radio"
+                name="addButton"
+                value="sim"
+                onChange={handleAddButtonChange}
+              />{" "}
+              Sim
+            </span>
+            <span>
+              <input
+                type="radio"
+                name="addButton"
+                value="nao"
+                onChange={handleAddButtonChange}
+              />{" "}
+              Não
+            </span>
+          </div>
+          {addButton && (
+            <div>
+              <div className={styles.form__container__divAlt}>
+                <label>Nome do Botão</label>
+                <input
+                  type="text"
+                  name="button_name"
+                  value={formData.button_name}
+                  onChange={handleInputChange}
+                  className={styles.input__receivers}
+                />
+              </div>
+              <div className={styles.form__container__divAlt}>
+                <label>Cor do Botão</label>
+                <input
+                  type="text"
+                  name="button_color"
+                  value={formData.button_color}
+                  onChange={handleInputChange}
+                  className={styles.input__receivers}
+                />
+              </div>
+              <div className={styles.form__container__divAlt}>
+                <label>Link do Botão</label>
+                <input
+                  type="text"
+                  name="button_link"
+                  value={formData.button_link}
+                  onChange={handleInputChange}
+                  className={styles.input__receivers}
+                />
+              </div>
+            </div>
+          )}
+          <div className={styles.form__container__div}>
+            <button
+              type="button"
+              className={styles.submitButton}
+              onClick={() => showPreview()}
+            >
+              Preview do Email
+            </button>
+          </div>
         </div>
-        <div className={styles.buttonsContainer}>
-          <button onClick={handleAddFields} className={styles.addButton}>
-            +
-          </button>
-          <button
-            onClick={handleRemoveLastField}
-            className={styles.removeButton}
-            disabled={fields.length === 1}
-          >
-            -
-          </button>
-        </div>
+      )}
+
+      <div className={styles.form__container__divAlt}>
+        <label>Como deseja definir os destinatários?</label>
+        <span>
+          <input
+            type="radio"
+            name="inputType"
+            value="csv"
+            onChange={handleInputTypeChange}
+          />{" "}
+          Arquivo CSV
+        </span>
+        <span>
+          <input
+            type="radio"
+            name="inputType"
+            value="manual"
+            onChange={handleInputTypeChange}
+            defaultChecked
+          />{" "}
+          Inserir Manualmente
+        </span>
       </div>
-      <div className={styles.form__container__div}>
+
+      {inputType === "csv" ? (
+        <div className={styles.form__container__div}>
+          <input
+            type="file"
+            name="file"
+            accept=".csv"
+            onChange={handleFileChange}
+          />
+        </div>
+      ) : (
+        <div className={styles.form__container__receivers}>
+          <div className={styles.form__container__divreceivers}>
+            <label className={styles.form__container__label}>
+              Destinatários
+            </label>
+          </div>
+          <div className={styles.form__container__divreceiversdata}>
+            {fields.map((field, index) => (
+              <div key={index} className={styles.fieldSet}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Nome"
+                  value={field.name}
+                  className={styles.input__receivers}
+                  onChange={(e) => handleFieldChange(index, e)}
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={field.email}
+                  className={styles.input__receivers}
+                  onChange={(e) => handleFieldChange(index, e)}
+                />
+              </div>
+            ))}
+          </div>
+          <div className={styles.buttonsContainer}>
+            <button onClick={handleAddFields} className={styles.addButton}>
+              +
+            </button>
+            <button
+              onClick={handleRemoveLastField}
+              className={styles.removeButton}
+              disabled={fields.length === 1}
+            >
+              -
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className={styles.form__container__divAlt}>
         <label>Deseja agendar o disparo de email?</label>
         <span>
           <input
