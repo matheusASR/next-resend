@@ -26,19 +26,19 @@ export class Email {
     body: string;
 
     @Column("int", { nullable: true })
-    date_day: number;
+    date_day: string;
 
     @Column("int", { nullable: true })
-    date_month: number;
+    date_month: string;
 
     @Column("int", { nullable: true })
-    date_year: number;
+    date_year: string;
 
     @Column("int", { nullable: true })
-    time_hour: number;
+    time_hour: string;
 
     @Column("int", { nullable: true })
-    time_minute: number;
+    time_minute: string;
 
     @Column("jsonb", { nullable: true })
     receivers: Receiver[];

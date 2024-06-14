@@ -3,29 +3,10 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import styles from "./form.module.css";
 import { api } from "@/api";
 
-interface Field {
-  name: any;
-  email: any;
-}
-
-interface FormData {
-  campaign_name: string;
-  type: string;
-  sender: string;
-  subject: string;
-  body: string;
-  date_day: string;
-  date_month: string;
-  date_year: string;
-  time_hour: string;
-  time_minute: string;
-  receivers: Field[];
-}
-
 export default function Form() {
-  const [fields, setFields] = useState<Field[]>([{ name: "", email: "" }]);
+  const [fields, setFields] = useState<any[]>([{ name: "", email: "" }]);
   const [agendar, setAgendar] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<any>({
     campaign_name: "",
     type: "",
     sender: "",
@@ -67,13 +48,10 @@ export default function Form() {
     });
   };
 
-  const handleFieldChange = (
-    index: number,
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFieldChange = (index: any, e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const newFields = [...fields];
-    newFields[index][name as keyof Field] = value;
+    newFields[index][name as keyof any] = value;
     setFields(newFields);
     setFormData({
       ...formData,
@@ -101,7 +79,7 @@ export default function Form() {
     event.preventDefault();
     const data = {
       ...formData,
-      receivers: fields, 
+      receivers: fields,
     };
     console.log("Form Data Submitted:", data);
     try {
@@ -245,7 +223,6 @@ export default function Form() {
             <div className={styles.div__input}>
               <input
                 className={styles.form__container__inputalt}
-                type="number"
                 name="date_day"
                 value={formData.date_day}
                 onChange={handleDateChange}
@@ -253,7 +230,6 @@ export default function Form() {
               <p className={styles.inputalt__simbol}>/</p>
               <input
                 className={styles.form__container__inputalt}
-                type="number"
                 name="date_month"
                 value={formData.date_month}
                 onChange={handleDateChange}
@@ -261,7 +237,6 @@ export default function Form() {
               <p className={styles.inputalt__simbol}>/</p>
               <input
                 className={styles.form__container__inputalt}
-                type="number"
                 name="date_year"
                 value={formData.date_year}
                 onChange={handleDateChange}
@@ -275,7 +250,6 @@ export default function Form() {
             <div className={styles.div__input}>
               <input
                 className={styles.form__container__inputalt}
-                type="number"
                 name="time_hour"
                 value={formData.time_hour}
                 onChange={handleTimeChange}
@@ -283,7 +257,6 @@ export default function Form() {
               <p className={styles.inputalt__simbol}>:</p>
               <input
                 className={styles.form__container__inputalt}
-                type="number"
                 name="time_minute"
                 value={formData.time_minute}
                 onChange={handleTimeChange}

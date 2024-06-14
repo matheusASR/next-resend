@@ -1,12 +1,13 @@
 import { Router } from "express";
 import middlewares from "../middlewares/index.ts";
 import { emailControllers } from "../controllers/index.ts";
+import { emailCreateSchema } from "../schemas/email.schemas.ts";
 
 export const emailRouter: Router = Router();
 
 emailRouter.use("/:id", middlewares.verifyEmailExists);
 
-emailRouter.post("", emailControllers.create);
+emailRouter.post("", middlewares.validateBody(emailCreateSchema), emailControllers.create);
 
 emailRouter.get("", emailControllers.read);
 
