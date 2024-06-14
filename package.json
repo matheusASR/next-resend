@@ -29,6 +29,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
     "reflect-metadata": "^0.1.13",
+    "resend": "^3.3.0",
     "typeorm": "^0.3.17",
     "zod": "^3.21.4"
   },
