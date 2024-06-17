@@ -40,22 +40,26 @@ export default function EmailPreview() {
               </a>
             ))}
         </div>
-        {formData.button_color.length > 0 && formData.button_name.length > 0 ? (
-          <button
-            style={{
-              borderRadius: 10,
-              fontWeight: "bold",
-              fontSize: 16,
-              height: 40,
-              backgroundColor: formData.button_color,
-              marginLeft: 20,
-            }}
-          >
-            {formData.button_name}
-          </button>
-        ) : (
-          <></>
-        )}
+        <div className={styles.div__bttn}>
+          {formData.button_color.length > 0 &&
+          formData.button_name.length > 0 ? (
+            <a href={formData.button_link} target="_blank">
+              <button
+                style={{
+                  borderRadius: 10,
+                  fontWeight: "bold",
+                  fontSize: 16,
+                  height: 40,
+                  backgroundColor: formData.button_color,
+                }}
+              >
+                {formData.button_name}
+              </button>
+            </a>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </div>
   );

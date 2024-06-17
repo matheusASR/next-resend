@@ -3,6 +3,7 @@
     width: 30%;
     border: 1px solid black;
     border-radius: 15px;
+    padding-bottom: 20px;
 }
 
 .emailpreview__header {
@@ -51,4 +52,10 @@
     outline: none; 
     padding: 10px;
     gap: 10px;
+}
+
+.div__bttn {
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
 }
