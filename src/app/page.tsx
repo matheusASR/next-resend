@@ -8,7 +8,10 @@ import {
   EmailPreviewContext,
   EmailPreviewProvider,
 } from "./ui/providers/emailPreviewContext";
-import { EmailCreateProvider } from "./ui/providers/emailCreateContext";
+import {
+  EmailCreateContext,
+  EmailCreateProvider,
+} from "./ui/providers/emailCreateContext";
 
 export default function SendEmail() {
   return (
@@ -22,13 +25,14 @@ export default function SendEmail() {
 
 function SendEmailContent() {
   const { active } = useContext(EmailPreviewContext);
+  const { bodyType } = useContext(EmailCreateContext);
 
   return (
     <>
       <Header />
       <main className={styles.main}>
         <Form />
-        {active ? <EmailPreview /> : <></>}
+        {bodyType === "creator" && active ? <EmailPreview /> : <></>}
       </main>
     </>
   );

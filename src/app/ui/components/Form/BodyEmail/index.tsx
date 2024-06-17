@@ -16,8 +16,9 @@ export default function BodyEmail() {
     setAddButton,
     addLinks,
     setAddLinks,
+    bodyType,
+    setBodyType
   } = useContext(EmailCreateContext);
-  const [bodyType, setBodyType] = useState("creator");
 
   const handleLinkChange = (
     index: number,

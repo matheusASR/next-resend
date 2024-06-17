@@ -51,6 +51,7 @@ export default function EmailPreview() {
                   fontSize: 16,
                   height: 40,
                   backgroundColor: formData.button_color,
+                  padding: 10
                 }}
               >
                 {formData.button_name}

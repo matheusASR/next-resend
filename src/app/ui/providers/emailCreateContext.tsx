@@ -47,6 +47,8 @@ interface EmailCreateContextType {
   addButton: boolean;
   setAddLinks: any;
   setAddButton: any;
+  bodyType: string;
+  setBodyType: any;
 }
 
 const EmailCreateContext = createContext<EmailCreateContextType>(
@@ -64,6 +66,7 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
   const [links, setLinks] = useState<string[]>([""]);
   const [addLinks, setAddLinks] = useState(false);
   const [addButton, setAddButton] = useState(false);
+  const [bodyType, setBodyType] = useState("creator");
   const [formData, setFormData] = useState<FormData>({
     campaign_name: "",
     type: "",
@@ -142,6 +145,8 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
         setAddLinks,
         addButton,
         setAddButton,
+        bodyType,
+        setBodyType,
       }}
     >
       {children}
