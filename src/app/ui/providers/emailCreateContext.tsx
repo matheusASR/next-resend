@@ -28,6 +28,7 @@ interface FormData {
   date_year: string;
   time_hour: string;
   time_minute: string;
+  csv_file: string;
   receivers: Receiver[];
 }
 
@@ -79,6 +80,7 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
     time_hour: "",
     time_minute: "",
     receivers: [{ name: "", email: "" }],
+    csv_file: "",
   });
 
   const handleInputChange = (
@@ -111,6 +113,15 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
         });
       };
       reader.readAsDataURL(file);
+    } else if (file && file.type === "text/csv") {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setFormData({
+          ...formData,
+          csv_file: reader.result as string,
+        });
+      };
+      reader.readAsText(file);
     } else {
       alert("Por favor, faça upload de um arquivo válido.");
     }
@@ -130,7 +141,7 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
         addLinks,
         setAddLinks,
         addButton,
-        setAddButton
+        setAddButton,
       }}
     >
       {children}

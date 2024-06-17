@@ -1,46 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-
-interface Receiver {
-  name: string;
-  email: string;
-}
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { EmailClassification } from "./EmailClassification.entity";
+import { Sender } from "./Sender.entity";
 
 @Entity("emails")
 export class Email {
     @PrimaryGeneratedColumn("increment")
     id: number;
 
-    @Column({ length: 100, nullable: true })
-    campaign_name: string;
+    @Column({ length: 255 })
+    titulo: string;
 
-    @Column({ length: 50, nullable: true })
-    type: string;
+    @Column("text")
+    corpo: string;
 
-    @Column({ length: 100, nullable: true })
-    sender: string;
+    @Column("bytea", { nullable: true })
+    imagem: Buffer;
 
-    @Column({ length: 150, nullable: true })
-    subject: string;
+    @ManyToOne(() => EmailClassification, classification => classification.emails)
+    classification: EmailClassification;
 
-    @Column("text", { nullable: true })
-    body: string;
+    @ManyToOne(() => Sender, sender => sender.emails)
+    sender: Sender;
 
-    @Column("int", { nullable: true })
-    date_day: string;
+    @CreateDateColumn({ type: 'timestamp' })
+    create_date: Date;
 
-    @Column("int", { nullable: true })
-    date_month: string;
-
-    @Column("int", { nullable: true })
-    date_year: string;
-
-    @Column("int", { nullable: true })
-    time_hour: string;
-
-    @Column("int", { nullable: true })
-    time_minute: string;
-
-    @Column("jsonb", { nullable: true })
-    receivers: Receiver[];
+    @UpdateDateColumn({ type: 'timestamp' })
+    update_date: Date;
 }
-
