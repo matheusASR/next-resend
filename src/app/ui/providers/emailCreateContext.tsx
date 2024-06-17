@@ -1,4 +1,12 @@
-import React, { createContext, ReactNode, useState, useContext, ChangeEvent, Dispatch, SetStateAction } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useState,
+  useContext,
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 interface Receiver {
   name: string;
@@ -25,24 +33,36 @@ interface FormData {
 
 interface EmailCreateContextType {
   formData: FormData;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleInputChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   handleFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
   setFormData: Dispatch<SetStateAction<FormData>>;
   fields: any;
   setFields: any;
   links: string[];
   setLinks: Dispatch<SetStateAction<any[]>>;
+  addLinks: boolean;
+  addButton: boolean;
+  setAddLinks: any;
+  setAddButton: any;
 }
 
-const EmailCreateContext = createContext<EmailCreateContextType>({} as EmailCreateContextType);
+const EmailCreateContext = createContext<EmailCreateContextType>(
+  {} as EmailCreateContextType
+);
 
 interface EmailCreateProviderProps {
   children: ReactNode;
 }
 
-const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({ children }) => {
+const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
+  children,
+}) => {
   const [fields, setFields] = useState<Receiver[]>([{ name: "", email: "" }]);
   const [links, setLinks] = useState<string[]>([""]);
+  const [addLinks, setAddLinks] = useState(false);
+  const [addButton, setAddButton] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     campaign_name: "",
     type: "",
@@ -61,7 +81,9 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({ children }) =
     receivers: [{ name: "", email: "" }],
   });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -95,12 +117,25 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({ children }) =
   };
 
   return (
-    <EmailCreateContext.Provider value={{ formData, setFormData, handleInputChange, handleFileChange, fields, setFields, links, setLinks }}>
+    <EmailCreateContext.Provider
+      value={{
+        formData,
+        setFormData,
+        handleInputChange,
+        handleFileChange,
+        fields,
+        setFields,
+        links,
+        setLinks,
+        addLinks,
+        setAddLinks,
+        addButton,
+        setAddButton
+      }}
+    >
       {children}
     </EmailCreateContext.Provider>
   );
 };
 
 export { EmailCreateProvider, EmailCreateContext };
-
-

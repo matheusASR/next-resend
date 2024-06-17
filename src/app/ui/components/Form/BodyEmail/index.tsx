@@ -1,15 +1,23 @@
-"use client"
+"use client";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import styles from "./bodyEmail.module.css";
 import { EmailPreviewContext } from "@/app/ui/providers/emailPreviewContext";
 import { EmailCreateContext } from "@/app/ui/providers/emailCreateContext";
 
 export default function BodyEmail() {
-  const { setActive } = useContext(EmailPreviewContext)
-  const { links, setLinks, handleInputChange, formData, handleFileChange } = useContext(EmailCreateContext)
+  const { setActive } = useContext(EmailPreviewContext);
+  const {
+    links,
+    setLinks,
+    handleInputChange,
+    formData,
+    handleFileChange,
+    addButton,
+    setAddButton,
+    addLinks,
+    setAddLinks,
+  } = useContext(EmailCreateContext);
   const [bodyType, setBodyType] = useState("creator");
-  const [addLinks, setAddLinks] = useState(false);
-  const [addButton, setAddButton] = useState(false);
 
   const handleLinkChange = (
     index: number,
