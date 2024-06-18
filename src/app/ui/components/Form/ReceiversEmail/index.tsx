@@ -40,7 +40,7 @@ export default function ReceiversEmail() {
   return (
     <>
       <div className={styles.form__container__divAlt}>
-        <label>Como deseja definir os destinatários?</label>
+        <label>Destinatários</label>
         <span>
           <input
             type="radio"
@@ -73,11 +73,6 @@ export default function ReceiversEmail() {
         </div>
       ) : (
         <div className={styles.form__container__receivers}>
-          <div className={styles.form__container__divreceivers}>
-            <label className={styles.form__container__label}>
-              Destinatários
-            </label>
-          </div>
           <div className={styles.form__container__divreceiversdata}>
             {fields.map((field: any, index: any) => (
               <div key={index} className={styles.fieldSet}>

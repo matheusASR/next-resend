@@ -59,7 +59,7 @@ export default function BodyEmail() {
   return (
     <>
       <div className={styles.form__container__divAlt}>
-        <label>Qual será o modelo do corpo do email?</label>
+        <label>Escolha:</label>
         <span>
           <input
             type="radio"

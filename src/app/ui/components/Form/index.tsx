@@ -19,22 +19,22 @@ export default function Form() {
       links: links.filter((link) => link !== ""),
     };
     console.log("Form Data Submitted:", data);
-    try {
-      const response = await api.post("/emails", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 200) {
-        alert("Email criado com sucesso!");
-      }
-    } catch (error: any) {
-      console.error(
-        "Erro ao criar email:",
-        error.response?.data || error.message
-      );
-      alert("Ocorreu um erro ao criar email");
-    }
+    // try {
+    //   const response = await api.post("/emails", data, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   if (response.status === 200) {
+    //     alert("Email criado com sucesso!");
+    //   }
+    // } catch (error: any) {
+    //   console.error(
+    //     "Erro ao criar email:",
+    //     error.response?.data || error.message
+    //   );
+    //   alert("Ocorreu um erro ao criar email");
+    // }
   };
 
   return (
