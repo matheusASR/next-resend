@@ -16,13 +16,14 @@ interface Receiver {
 interface FormData {
   campaign_name: string;
   type: string;
+  client: string;
   sender_name: string;
   sender_email: string;
   subject: string;
   title: string;
   body: string;
-  client: string;
   image: string;
+  html_file: string;
   button_name: string;
   button_color: string;
   button_link: string;
@@ -77,6 +78,7 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
     sender_email: "",
     subject: "",
     client: "",
+    html_file: "",
     title: "",
     body: "",
     image: "",
@@ -109,7 +111,7 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
       reader.onload = () => {
         setFormData({
           ...formData,
-          body: reader.result as string,
+          html_file: reader.result as string,
         });
       };
       reader.readAsText(file);
