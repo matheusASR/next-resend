@@ -16,7 +16,8 @@ interface Receiver {
 interface FormData {
   campaign_name: string;
   type: string;
-  sender: string;
+  sender_name: string;
+  sender_email: string;
   subject: string;
   title: string;
   body: string;
@@ -72,11 +73,12 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
   const [formData, setFormData] = useState<FormData>({
     campaign_name: "",
     type: "",
-    sender: "",
+    sender_name: "",
+    sender_email: "",
     subject: "",
+    client: "",
     title: "",
     body: "",
-    client: "",
     image: "",
     button_name: "",
     button_color: "",

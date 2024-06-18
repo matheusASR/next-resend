@@ -40,12 +40,22 @@ export default function BasicInfoEmail() {
         />
       </div>
       <div className={styles.form__container__div}>
-        <label className={styles.form__container__label}>Remetente</label>
+        <label className={styles.form__container__namelabel}>Nome do Remetente</label>
+        <input
+          className={styles.form__container__input}
+          type="text"
+          name="sender_name"
+          value={formData.sender_name}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className={styles.form__container__div}>
+        <label className={styles.form__container__namelabel}>Email do Remetente</label>
         <input
           className={styles.form__container__input}
           type="email"
-          name="sender"
-          value={formData.sender}
+          name="sender_email"
+          value={formData.sender_email}
           onChange={handleInputChange}
         />
       </div>
