@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function EmailPreview() {
   const { setActive } = useContext(EmailPreviewContext);
-  const { formData, links } = useContext(EmailCreateContext);
+  const { formData, links, addLinks, addButton } = useContext(EmailCreateContext);
 
   return (
     <div className={styles.emailpreview__container}>
@@ -25,9 +25,10 @@ export default function EmailPreview() {
         ) : (
           <></>
         )}
+        <h1>{formData.title}</h1>
         <p className={styles.body__text}>{formData.body}</p>
         <div className={styles.links__container}>
-          {links.length > 0 &&
+          {addLinks && links.length > 0 &&
             links.map((link, index) => (
               <a
                 key={index}
@@ -41,7 +42,7 @@ export default function EmailPreview() {
             ))}
         </div>
         <div className={styles.div__bttn}>
-          {formData.button_color.length > 0 &&
+          {addButton && formData.button_color.length > 0 &&
           formData.button_name.length > 0 ? (
             <a href={formData.button_link} target="_blank">
               <button
@@ -54,7 +55,7 @@ export default function EmailPreview() {
                   padding: 10
                 }}
               >
-                {formData.button_name}
+                {addButton && formData.button_name}
               </button>
             </a>
           ) : (

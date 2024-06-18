@@ -17,7 +17,7 @@ export default function BodyEmail() {
     addLinks,
     setAddLinks,
     bodyType,
-    setBodyType
+    setBodyType,
   } = useContext(EmailCreateContext);
 
   const handleLinkChange = (
@@ -99,6 +99,16 @@ export default function BodyEmail() {
               name="image"
               accept="image/*"
               onChange={handleFileChange}
+            />
+          </div>
+          <div className={styles.form__container__divAlt}>
+            <label>Título</label>
+            <input
+              className={styles.form__container__input}
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
             />
           </div>
           <div className={styles.form__container__divAlt}>

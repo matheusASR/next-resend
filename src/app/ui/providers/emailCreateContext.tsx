@@ -18,7 +18,9 @@ interface FormData {
   type: string;
   sender: string;
   subject: string;
+  title: string;
   body: string;
+  client: string;
   image: string;
   button_name: string;
   button_color: string;
@@ -72,7 +74,9 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
     type: "",
     sender: "",
     subject: "",
+    title: "",
     body: "",
+    client: "",
     image: "",
     button_name: "",
     button_color: "",
