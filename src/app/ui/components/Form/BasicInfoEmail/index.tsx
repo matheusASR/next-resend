@@ -17,6 +17,7 @@ export default function BasicInfoEmail() {
           name="campaign_name"
           value={formData.campaign_name}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div className={styles.form__container__div}>
@@ -27,6 +28,7 @@ export default function BasicInfoEmail() {
           name="type"
           value={formData.type}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div className={styles.form__container__div}>
@@ -37,6 +39,7 @@ export default function BasicInfoEmail() {
           name="client"
           value={formData.client}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div className={styles.form__container__div}>
@@ -47,6 +50,7 @@ export default function BasicInfoEmail() {
           name="sender_name"
           value={formData.sender_name}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div className={styles.form__container__div}>
@@ -57,6 +61,7 @@ export default function BasicInfoEmail() {
           name="sender_email"
           value={formData.sender_email}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div className={styles.form__container__div}>
@@ -67,6 +72,7 @@ export default function BasicInfoEmail() {
           name="subject"
           value={formData.subject}
           onChange={handleInputChange}
+          required
         />
       </div>
     </>
