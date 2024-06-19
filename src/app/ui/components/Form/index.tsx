@@ -10,8 +10,16 @@ import { EmailCreateContext } from "../../providers/emailCreateContext";
 import EmailPreview, { generateEmailHTML } from "../EmailPreview";
 
 export default function Form() {
-  const { formData, fields, bodyType, inputType, agendar, links, addLinks, addButton } =
-    useContext(EmailCreateContext);
+  const {
+    formData,
+    fields,
+    bodyType,
+    inputType,
+    agendar,
+    links,
+    addLinks,
+    addButton,
+  } = useContext(EmailCreateContext);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -43,19 +51,22 @@ export default function Form() {
       data.time_minute = "";
     }
 
-    console.log(data)
+    console.log(data);
 
     // try {
     //   const response = await api.post("/emails", data);
     //   if (response.status === 201) {
-    //     alert("Email criado com sucesso!");
+    //     alert("Email salvo com sucesso!");
+    //     setTimeout(() => {
+    //       window.location.reload();
+    //     }, 3000);
     //   }
     // } catch (error: any) {
     //   console.error(
     //     "Erro ao criar email:",
     //     error.response?.data || error.message
     //   );
-    //   alert("Ocorreu um erro ao criar email");
+    //   alert("Ocorreu um erro ao salvar email");
     // }
   };
 
@@ -67,10 +78,9 @@ export default function Form() {
       <ScheduleEmail />
       <div className={styles.div__bttn}>
         <button type="submit" className={styles.submitButton}>
-          Enviar
+          Salvar
         </button>
       </div>
     </form>
   );
 }
-
