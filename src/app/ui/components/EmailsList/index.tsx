@@ -9,10 +9,25 @@ import EmailScheduleModal from "./Modals/EmailSchedule";
 export default function EmailsList() {
   const [emails, setEmails] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [emailViewModal, setEmailViewModal] = useState(false);
-  const [emailSendModal, setEmailSendModal] = useState(false);
-  const [emailScheduleModal, setEmailScheduleModal] = useState(false);
-  const [selectedEmail, setSelectedEmail] = useState(null);
+  const [emailViewModal, setEmailViewModal] = useState<boolean>(false);
+  const [emailSendModal, setEmailSendModal] = useState<boolean>(false);
+  const [emailScheduleModal, setEmailScheduleModal] = useState<boolean>(false);
+  const [selectedEmail, setSelectedEmail] = useState<any | null>(null);
+
+  const openEmailViewModal = (email: any) => {
+    setSelectedEmail(email);
+    setEmailViewModal(true);
+  };
+
+  const openEmailSendModal = (email: any) => {
+    setSelectedEmail(email);
+    setEmailSendModal(true);
+  };
+
+  const openEmailScheduleModal = (email: any) => {
+    setSelectedEmail(email);
+    setEmailScheduleModal(true);
+  };
 
   const closeEmailViewModal = () => {
     setEmailViewModal(false);
@@ -56,11 +71,30 @@ export default function EmailsList() {
       <div className={styles.emailsList__container}>
         {emails.map((email: any) => (
           <div key={email.id} className={styles.emailItem}>
-            <p>{email.id}</p>
+            <section>
+              <p>Email {email.id}</p>
+              <p>Tipo: {email.classification.name}</p>
+              <p>Email do Remetente: {email.sender.alias}</p>
+            </section>
             <section className={styles.section__bttns}>
-              <button className={styles.emailButton}>Visualizar</button>
-              <button className={styles.emailButton}>Disparar</button>
-              <button className={styles.emailButton}>Agendar</button>
+              <button
+                onClick={() => openEmailViewModal(email)}
+                className={styles.emailButton}
+              >
+                Visualizar
+              </button>
+              <button
+                onClick={() => openEmailSendModal(email)}
+                className={styles.emailButton}
+              >
+                Disparar
+              </button>
+              <button
+                onClick={() => openEmailScheduleModal(email)}
+                className={styles.emailButton}
+              >
+                Agendar
+              </button>
             </section>
           </div>
         ))}
