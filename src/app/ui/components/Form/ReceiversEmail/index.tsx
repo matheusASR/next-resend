@@ -4,9 +4,8 @@ import styles from "./receiversEmail.module.css";
 import { EmailCreateContext } from "@/app/ui/providers/emailCreateContext";
 
 export default function ReceiversEmail() {
-  const { formData, handleFileChange, setFormData, fields, setFields } =
+  const { formData, handleFileChange, setFormData, fields, setFields, inputType, setInputType } =
     useContext(EmailCreateContext);
-  const [inputType, setInputType] = useState("manual");
 
   const handleInputTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputType(e.target.value);
@@ -69,6 +68,7 @@ export default function ReceiversEmail() {
             name="file"
             accept=".csv"
             onChange={handleFileChange}
+            required
           />
         </div>
       ) : (
@@ -83,6 +83,7 @@ export default function ReceiversEmail() {
                   value={field.name}
                   className={styles.input__receivers}
                   onChange={(e) => handleFieldChange(index, e)}
+                  required
                 />
                 <input
                   type="email"
@@ -91,6 +92,7 @@ export default function ReceiversEmail() {
                   value={field.email}
                   className={styles.input__receivers}
                   onChange={(e) => handleFieldChange(index, e)}
+                  required
                 />
               </div>
             ))}

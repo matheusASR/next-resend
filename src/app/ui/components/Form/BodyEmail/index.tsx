@@ -88,6 +88,7 @@ export default function BodyEmail() {
             name="file"
             accept=".html"
             onChange={handleFileChange}
+            required
           />
         </div>
       ) : (

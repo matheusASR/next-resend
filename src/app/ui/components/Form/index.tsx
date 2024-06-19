@@ -9,32 +9,53 @@ import ScheduleEmail from "./ScheduleEmail";
 import { EmailCreateContext } from "../../providers/emailCreateContext";
 
 export default function Form() {
-  const { formData, fields, links } = useContext(EmailCreateContext)
+  const { formData, fields, links, bodyType, inputType, agendar } = useContext(EmailCreateContext)
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const data = {
       ...formData,
       receivers: fields,
-      links: links.filter((link) => link !== ""),
     };
-    console.log("Form Data Submitted:", data);
-    try {
-      const response = await api.post("/emails", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 201) {
-        alert("Email criado com sucesso!");
-      }
-    } catch (error: any) {
-      console.error(
-        "Erro ao criar email:",
-        error.response?.data || error.message
-      );
-      alert("Ocorreu um erro ao criar email");
+
+    if (bodyType === "html") {
+      data.title = "";
+      data.body = "";
+      data.image = "";
+      data.button_name = "";
+      data.button_color = "";
+      data.button_link = "";
     }
+
+    if (inputType === "csv") {
+      data.receivers = [];
+    }
+
+    if (agendar === false) {
+      data.date_day = "";
+      data.date_month = "";
+      data.date_year = "";
+      data.time_hour = "";
+      data.time_minute = "";
+    }
+    
+    console.log("Form Data Submitted:", data);
+    // try {
+    //   const response = await api.post("/emails", data, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   if (response.status === 201) {
+    //     alert("Email criado com sucesso!");
+    //   }
+    // } catch (error: any) {
+    //   console.error(
+    //     "Erro ao criar email:",
+    //     error.response?.data || error.message
+    //   );
+    //   alert("Ocorreu um erro ao criar email");
+    // }
   };
 
   return (

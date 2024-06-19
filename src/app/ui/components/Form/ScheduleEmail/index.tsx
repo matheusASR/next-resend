@@ -4,8 +4,7 @@ import styles from "./scheduleEmail.module.css";
 import { EmailCreateContext } from "@/app/ui/providers/emailCreateContext";
 
 export default function ScheduleEmail() {
-  const { formData, setFormData } = useContext(EmailCreateContext)
-  const [agendar, setAgendar] = useState(false);
+  const { formData, setFormData, agendar, setAgendar } = useContext(EmailCreateContext)
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAgendar(e.target.value === "sim");
@@ -63,6 +62,7 @@ export default function ScheduleEmail() {
                 name="date_day"
                 value={formData.date_day}
                 onChange={handleDateChange}
+                required
               />
               <p className={styles.inputalt__simbol}>/</p>
               <input
@@ -70,6 +70,7 @@ export default function ScheduleEmail() {
                 name="date_month"
                 value={formData.date_month}
                 onChange={handleDateChange}
+                required
               />
               <p className={styles.inputalt__simbol}>/</p>
               <input
@@ -77,6 +78,7 @@ export default function ScheduleEmail() {
                 name="date_year"
                 value={formData.date_year}
                 onChange={handleDateChange}
+                required
               />
             </div>
           </div>
@@ -90,6 +92,7 @@ export default function ScheduleEmail() {
                 name="time_hour"
                 value={formData.time_hour}
                 onChange={handleTimeChange}
+                required
               />
               <p className={styles.inputalt__simbol}>:</p>
               <input
@@ -97,6 +100,7 @@ export default function ScheduleEmail() {
                 name="time_minute"
                 value={formData.time_minute}
                 onChange={handleTimeChange}
+                required
               />
             </div>
           </div>
