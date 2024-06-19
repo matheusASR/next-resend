@@ -12,27 +12,40 @@ import {
   EmailCreateContext,
   EmailCreateProvider,
 } from "./ui/providers/emailCreateContext";
+import { HeaderContext, HeaderProvider } from "./ui/providers/headerContext";
+import EmailsList from "./ui/components/EmailsList";
 
 export default function SendEmail() {
   return (
-    <EmailPreviewProvider>
-      <EmailCreateProvider>
-        <SendEmailContent />
-      </EmailCreateProvider>
-    </EmailPreviewProvider>
+    <HeaderProvider>
+      <EmailPreviewProvider>
+        <EmailCreateProvider>
+          <SendEmailContent />
+        </EmailCreateProvider>
+      </EmailPreviewProvider>
+    </HeaderProvider>
   );
 }
 
 function SendEmailContent() {
   const { active } = useContext(EmailPreviewContext);
   const { bodyType } = useContext(EmailCreateContext);
+  const { mode } = useContext(HeaderContext)
 
   return (
     <>
       <Header />
       <main className={styles.main}>
-        <Form />
-        {bodyType === "creator" && active ? <EmailPreview /> : <></>}
+        {mode === "new-email" ? (
+          <>
+            <Form />
+            {bodyType === "creator" && active ? <EmailPreview /> : <></>}
+          </>
+        ) : (
+          <>
+            <EmailsList />
+          </>
+        )}
       </main>
     </>
   );
