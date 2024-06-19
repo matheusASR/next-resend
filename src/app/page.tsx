@@ -43,7 +43,7 @@ function SendEmailContent() {
           </>
         ) : (
           <>
-            <EmailsList />
+            <EmailsList/>
           </>
         )}
       </main>

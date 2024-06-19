@@ -1,0 +1,44 @@
+.emailsList__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 60%;
+  margin-top: 140px;
+  margin-bottom: 50px;
+}
+
+.emailItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+.emailItem p {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.emailButton {
+  margin-top: 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+}
+
+.emailButton:hover {
+  background-color: #b9b9b9;
+}
+
+.section__bttns {
+    display: flex;
+    gap: 10px;
+}

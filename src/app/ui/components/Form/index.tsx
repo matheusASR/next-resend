@@ -51,23 +51,24 @@ export default function Form() {
       data.time_minute = "";
     }
 
-    console.log(data);
+    console.log("Sending data:", data);
 
-    // try {
-    //   const response = await api.post("/emails", data);
-    //   if (response.status === 201) {
-    //     alert("Email salvo com sucesso!");
-    //     setTimeout(() => {
-    //       window.location.reload();
-    //     }, 3000);
-    //   }
-    // } catch (error: any) {
-    //   console.error(
-    //     "Erro ao criar email:",
-    //     error.response?.data || error.message
-    //   );
-    //   alert("Ocorreu um erro ao salvar email");
-    // }
+    try {
+      const response = await api.post("/emails", data);
+      if (response.status === 201) {
+        alert("Email salvo com sucesso!");
+        console.log("Email created successfully, reloading page...");
+        window.location.reload();
+      } else {
+        console.log("Unexpected response status:", response.status);
+      }
+    } catch (error: any) {
+      console.error(
+        "Erro ao criar email:",
+        error.response?.data || error.message
+      );
+      alert("Ocorreu um erro ao salvar email");
+    }
   };
 
   return (
