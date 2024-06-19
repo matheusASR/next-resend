@@ -9,7 +9,8 @@ import ScheduleEmail from "./ScheduleEmail";
 import { EmailCreateContext } from "../../providers/emailCreateContext";
 
 export default function Form() {
-  const { formData, fields, links, bodyType, inputType, agendar } = useContext(EmailCreateContext)
+  const { formData, fields, bodyType, inputType, agendar } =
+    useContext(EmailCreateContext);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -38,14 +39,9 @@ export default function Form() {
       data.time_hour = "";
       data.time_minute = "";
     }
-    
-    console.log("Form Data Submitted:", data);
+
     try {
-      const response = await api.post("/emails", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await api.post("/emails", data);
       if (response.status === 201) {
         alert("Email criado com sucesso!");
       }
@@ -60,10 +56,10 @@ export default function Form() {
 
   return (
     <form className={styles.form__container} onSubmit={handleSubmit}>
-      <BasicInfoEmail/>
-      <BodyEmail/>
-      <ReceiversEmail/>
-      <ScheduleEmail/>
+      <BasicInfoEmail />
+      <BodyEmail />
+      <ReceiversEmail />
+      <ScheduleEmail />
       <div className={styles.div__bttn}>
         <button type="submit" className={styles.submitButton}>
           Enviar
