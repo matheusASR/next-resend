@@ -57,6 +57,7 @@ interface EmailCreateContextType {
   setInputType: any;
   agendar: boolean;
   setAgendar: any;
+  resetContext: any;
 }
 
 const EmailCreateContext = createContext<EmailCreateContextType>(
@@ -76,7 +77,7 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
   const [addButton, setAddButton] = useState(false);
   const [agendar, setAgendar] = useState(false);
   const [bodyType, setBodyType] = useState("creator");
-  const [inputType, setInputType] = useState("manual")
+  const [inputType, setInputType] = useState("manual");
   const [formData, setFormData] = useState<FormData>({
     campaign_name: "",
     type: "",
@@ -99,6 +100,38 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
     receivers: [{ name: "", email: "" }],
     csv_file: "",
   });
+
+  const resetContext = () => {
+    setFormData({
+      campaign_name: "",
+      type: "",
+      sender_name: "",
+      sender_email: "",
+      subject: "",
+      client: "",
+      html_file: "",
+      title: "",
+      body: "",
+      image: "",
+      button_name: "",
+      button_color: "",
+      button_link: "",
+      date_day: "",
+      date_month: "",
+      date_year: "",
+      time_hour: "",
+      time_minute: "",
+      receivers: [{ name: "", email: "" }],
+      csv_file: "",
+    });
+    setFields([]);
+    setBodyType("creator");
+    setInputType("manual");
+    setAgendar(false);
+    setLinks([]);
+    setAddButton(false);
+    setAddLinks(false);
+  };
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -164,7 +197,8 @@ const EmailCreateProvider: React.FC<EmailCreateProviderProps> = ({
         inputType,
         setInputType,
         agendar,
-        setAgendar
+        setAgendar,
+        resetContext
       }}
     >
       {children}

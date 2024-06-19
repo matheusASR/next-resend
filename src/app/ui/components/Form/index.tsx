@@ -7,7 +7,7 @@ import BodyEmail from "./BodyEmail";
 import ReceiversEmail from "./ReceiversEmail";
 import ScheduleEmail from "./ScheduleEmail";
 import { EmailCreateContext } from "../../providers/emailCreateContext";
-import EmailPreview, { generateEmailHTML } from "../EmailPreview";
+import { generateEmailHTML } from "../EmailPreview";
 
 export default function Form() {
   const {
@@ -19,10 +19,12 @@ export default function Form() {
     links,
     addLinks,
     addButton,
+    resetContext
   } = useContext(EmailCreateContext);
 
   const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
+
     const data = {
       ...formData,
       receivers: fields,
@@ -55,12 +57,10 @@ export default function Form() {
 
     try {
       const response = await api.post("/emails", data);
+      console.log(response)
       if (response.status === 201) {
         alert("Email salvo com sucesso!");
-        console.log("Email created successfully, reloading page...");
-        window.location.reload();
-      } else {
-        console.log("Unexpected response status:", response.status);
+        resetContext()
       }
     } catch (error: any) {
       console.error(
