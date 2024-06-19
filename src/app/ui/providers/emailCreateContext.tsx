@@ -23,7 +23,7 @@ interface FormData {
   title: string;
   body: string;
   image: string;
-  html_file: string;
+  html_file: any;
   button_name: string;
   button_color: string;
   button_link: string;

@@ -7,9 +7,10 @@ import BodyEmail from "./BodyEmail";
 import ReceiversEmail from "./ReceiversEmail";
 import ScheduleEmail from "./ScheduleEmail";
 import { EmailCreateContext } from "../../providers/emailCreateContext";
+import EmailPreview, { generateEmailHTML } from "../EmailPreview";
 
 export default function Form() {
-  const { formData, fields, bodyType, inputType, agendar } =
+  const { formData, fields, bodyType, inputType, agendar, links, addLinks, addButton } =
     useContext(EmailCreateContext);
 
   const handleSubmit = async (event: FormEvent) => {
@@ -26,6 +27,8 @@ export default function Form() {
       data.button_name = "";
       data.button_color = "";
       data.button_link = "";
+    } else {
+      data.html_file = generateEmailHTML(formData, links, addLinks, addButton);
     }
 
     if (inputType === "csv") {
@@ -40,18 +43,20 @@ export default function Form() {
       data.time_minute = "";
     }
 
-    try {
-      const response = await api.post("/emails", data);
-      if (response.status === 201) {
-        alert("Email criado com sucesso!");
-      }
-    } catch (error: any) {
-      console.error(
-        "Erro ao criar email:",
-        error.response?.data || error.message
-      );
-      alert("Ocorreu um erro ao criar email");
-    }
+    console.log(data)
+
+    // try {
+    //   const response = await api.post("/emails", data);
+    //   if (response.status === 201) {
+    //     alert("Email criado com sucesso!");
+    //   }
+    // } catch (error: any) {
+    //   console.error(
+    //     "Erro ao criar email:",
+    //     error.response?.data || error.message
+    //   );
+    //   alert("Ocorreu um erro ao criar email");
+    // }
   };
 
   return (
@@ -68,3 +73,4 @@ export default function Form() {
     </form>
   );
 }
+
