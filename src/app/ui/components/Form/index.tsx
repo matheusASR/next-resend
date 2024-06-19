@@ -40,22 +40,22 @@ export default function Form() {
     }
     
     console.log("Form Data Submitted:", data);
-    // try {
-    //   const response = await api.post("/emails", data, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   if (response.status === 201) {
-    //     alert("Email criado com sucesso!");
-    //   }
-    // } catch (error: any) {
-    //   console.error(
-    //     "Erro ao criar email:",
-    //     error.response?.data || error.message
-    //   );
-    //   alert("Ocorreu um erro ao criar email");
-    // }
+    try {
+      const response = await api.post("/emails", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 201) {
+        alert("Email criado com sucesso!");
+      }
+    } catch (error: any) {
+      console.error(
+        "Erro ao criar email:",
+        error.response?.data || error.message
+      );
+      alert("Ocorreu um erro ao criar email");
+    }
   };
 
   return (
