@@ -55,11 +55,8 @@ export default function Form() {
       data.time_minute = "";
     }
 
-    console.log("Sending data:", data);
-
     try {
       const response = await api.post("/emails", data);
-      console.log(response)
       if (response.status === 201) {
         alert("Email salvo com sucesso!");
         resetContext()
