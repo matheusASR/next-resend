@@ -1,3 +1,11 @@
 .modal__container {
-    width: 100%;
+  width: 100%;
 }
+
+.close__bttn__section {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+

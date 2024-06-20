@@ -16,7 +16,11 @@ interface EmailViewModalProps {
   email: any | null;
 }
 
-const EmailViewModal = ({ isOpen, onRequestClose, email }: EmailViewModalProps) => {
+const EmailViewModal = ({
+  isOpen,
+  onRequestClose,
+  email,
+}: EmailViewModalProps) => {
   const [htmlContent, setHtmlContent] = useState("");
 
   useEffect(() => {
@@ -36,6 +40,9 @@ const EmailViewModal = ({ isOpen, onRequestClose, email }: EmailViewModalProps) 
       style={customStyles}
     >
       <div className={styles.modal__container}>
+        <section className={styles.close__bttn__section}>
+          <button onClick={onRequestClose}>X</button>
+        </section>
         {htmlContent ? (
           <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
         ) : (
@@ -47,4 +54,3 @@ const EmailViewModal = ({ isOpen, onRequestClose, email }: EmailViewModalProps) 
 };
 
 export default EmailViewModal;
-

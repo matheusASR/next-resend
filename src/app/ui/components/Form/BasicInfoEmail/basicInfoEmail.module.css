@@ -1,180 +1,26 @@
-.form__container {
-    display: flex;
-    flex-direction: column;
-  
-    width: 50%;
-    margin-top: 140px;
-    margin-bottom: 100px;
-  }
-  
-  .form__container__div {
-    border-bottom: 3px solid gray;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .form__container__divAlt {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .form__container__namelabel {
-    font-size: 16px;
-    width: 30%;
-  }
-  
-  .form__container__label {
-    font-size: 16px;
-  }
-  
-  .form__container__input {
-    border-style: none;
-    margin-left: 10px;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0px 5px;
-  }
-  
-  .form__container__nameinput {
-    border-style: none;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    padding-top: 10px;
-    margin-left: 10px;
-  }
-  
-  .form__container__textarea {
-    border-style: none;
-    width: 100%;
-    font-size: 16px;
-    padding: 5px;
-    min-height: 180px;
-    overflow-x: auto;
-    font-weight: bold;
-    resize: none;
-  }
-  
-  .form__container__smalldiv {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form__container__textarea:focus,
-  .form__container__input:focus,
-  .form__container__inputalt:focus,
-  .form__container__nameinput:focus {
-    outline: none;
-    border: none;
-  }
-  
-  .form__container__inputalt {
-    width: 40px;
-    text-align: center;
-    border-style: none;
-    font-weight: bold;
-    font-size: 16px;
-  }
-  
-  .form__container__inputalt::-webkit-outer-spin-button,
-  .form__container__inputalt::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  .div__input {
-    display: flex;
-    width: 50%;
-    margin-top: 10px;
-    font-size: 16px;
-  }
-  
-  .import__bttn {
-    width: 150px;
-    height: 30px;
-  }
-  
-  .form__container__receivers {
-    border-bottom: 3px solid gray;
-    padding: 10px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-direction: column;
-  }
-  
-  .form__container__divreceivers {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .form__container__divlinks {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    margin-left: 10px;
-  }
-  
-  .input__link {
-    margin-right: 10px;
-    padding: 8px;
-    font-size: 16px;
-    width: 160%;
-    font-weight: bold;
-  }
-  
-  .form__container__divreceiversdata {
-    margin-top: 20px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-  }
-  
-  .fieldSet {
-    width: 100%;
-  }
-  
-  .input__receivers {
-    margin-right: 10px;
-    padding: 8px;
-    font-size: 16px;
-    width: 45%;
-    font-weight: bold;
-  }
-  
-  .addButton,
-  .removeButton {
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-right: 10px;
-  }
-  
-  .div__bttn {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-  }
-  
-  .submitButton {
-      width: 150px;
-      margin-top: 20px;
-      height: 40px;
-  }
-  
+.form__container__div {
+  border-bottom: 3px solid gray;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form__container__namelabel {
+  font-size: 16px;
+  width: 30%;
+}
+
+.form__container__label {
+  font-size: 16px;
+}
+
+.form__container__input {
+  border-style: none;
+  margin-left: 10px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0px 5px;
+}
+
