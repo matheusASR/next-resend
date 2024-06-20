@@ -2,6 +2,7 @@
 import Modal from "react-modal";
 import styles from "./emailSchedule.module.css";
 import { ChangeEvent, FocusEvent, useState } from "react";
+import { api } from "@/api";
 
 const customStyles = {
   content: {
@@ -108,8 +109,25 @@ const EmailScheduleModal = ({ isOpen, onRequestClose, email }: any) => {
     });
   };
 
-  const handleSubmit = () => {
-    console.log(formData);
+  const handleSubmit = async (event: any) => {
+    event.preventDefault()
+    const data = {
+      send_date: `${formData.date_year}/${formData.date_month}/${formData.date_day}`,
+      send_time: `${formData.time_hour}:${formData.time_minute}`,
+      status: "Agendado"
+    }
+    try {
+      const response = await api.post(`/emails/schedule/${email.id}`, data);
+      if (response.status === 200) {
+        alert("Email agendado com sucesso!");
+      }
+    } catch (error: any) {
+      console.error(
+        "Erro ao agendar email:",
+        error.response?.data || error.message
+      );
+      alert("Ocorreu um erro ao agendar email");
+    }
   };
 
   return (

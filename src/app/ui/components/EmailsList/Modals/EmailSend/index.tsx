@@ -1,5 +1,6 @@
 import Modal from "react-modal";
 import styles from "./emailSend.module.css";
+import { api } from "@/api";
 
 const customStyles = {
   content: {
@@ -10,8 +11,19 @@ const customStyles = {
 };
 
 const EmailSendModal = ({ isOpen, onRequestClose, email }: any) => {
-  const sendEmail = () => {
-    console.log("email enviado");
+  const sendEmail = async () => {
+    try {
+      const response = await api.post(`/emails/resend/${email.id}`);
+      if (response.status === 200) {
+        alert("Email disparado com sucesso!");
+      }
+    } catch (error: any) {
+      console.error(
+        "Erro ao disparar email:",
+        error.response?.data || error.message
+      );
+      alert("Ocorreu um erro ao disparar email");
+    }
   };
 
   return (

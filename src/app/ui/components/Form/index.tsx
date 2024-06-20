@@ -43,6 +43,8 @@ export default function Form() {
 
     if (inputType === "csv") {
       data.receivers = [];
+    } else {
+      data.csv_file = ""
     }
 
     if (agendar === false) {
