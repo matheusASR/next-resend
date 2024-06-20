@@ -110,17 +110,20 @@ const EmailScheduleModal = ({ isOpen, onRequestClose, email }: any) => {
   };
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault()
+    event.preventDefault();
     const data = {
       send_date: `${formData.date_year}/${formData.date_month}/${formData.date_day}`,
       send_time: `${formData.time_hour}:${formData.time_minute}:00`,
-      status: "Agendado"
-    }
+      status: "Agendado",
+    };
     try {
       const response = await api.post(`/schedules/${email.id}`, data);
       if (response.status === 200) {
         alert("Email agendado com sucesso!");
-        onRequestClose()
+        onRequestClose();
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
       }
     } catch (error: any) {
       console.error(

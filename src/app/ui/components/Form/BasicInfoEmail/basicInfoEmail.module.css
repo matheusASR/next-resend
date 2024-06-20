@@ -24,3 +24,10 @@
   padding: 0px 5px;
 }
 
+.form__container__textarea:focus,
+.form__container__input:focus,
+.form__container__inputalt:focus,
+.form__container__nameinput:focus {
+  outline: none;
+  border: none;
+}

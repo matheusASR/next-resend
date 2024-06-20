@@ -77,58 +77,62 @@ export default function EmailsList() {
 
     getEmails();
     getSchedules();
-  }, [scheduledEmails]);
+  }, []);
 
   if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return <div className={styles.loading}>Carregando...</div>;
   }
 
   return (
     <>
       <div className={styles.emailsList__container}>
-        {emails.map((email: any) => {
-          const scheduledEmail: any = scheduledEmails.find(
-            (scheduledEmail: any) => scheduledEmail.email.id === email.id
-          );
+        {emails.length === 0 ? (
+          <div className={styles.loading}>Nenhum Email encontrado</div>
+        ) : (
+          emails.map((email: any) => {
+            const scheduledEmail: any = scheduledEmails.find(
+              (scheduledEmail: any) => scheduledEmail.email.id === email.id
+            );
 
-          return (
-            <div key={email.id} className={styles.emailItem}>
-              <section>
-                <p>Email {email.id}</p>
-                <p>Tipo: {email.classification.name}</p>
-                <p>Email do Remetente: {email.sender.alias}</p>
-              </section>
-              <section className={styles.section__bttns}>
-                <button
-                  onClick={() => openEmailViewModal(email)}
-                  className={styles.emailButton}
-                >
-                  Visualizar
-                </button>
-                <button
-                  onClick={() => openEmailSendModal(email)}
-                  className={styles.emailButton}
-                >
-                  Disparar
-                </button>
-                {scheduledEmail ? (
-                  <div className={styles.scheduled}>
-                    <p className={styles.scheduledText}>Agendado</p>
-                    <p className={styles.scheduledText}>{scheduledEmail.send_date}</p>
-                    <p className={styles.scheduledText}>{scheduledEmail.send_time}</p>
-                  </div>
-                ) : (
+            return (
+              <div key={email.id} className={styles.emailItem}>
+                <section>
+                  <p>Email {email.id}</p>
+                  <p>Tipo: {email.classification.name}</p>
+                  <p>Email do Remetente: {email.sender.alias}</p>
+                </section>
+                <section className={styles.section__bttns}>
                   <button
-                    onClick={() => openEmailScheduleModal(email)}
+                    onClick={() => openEmailViewModal(email)}
                     className={styles.emailButton}
                   >
-                    Agendar
+                    Visualizar
                   </button>
-                )}
-              </section>
-            </div>
-          );
-        })}
+                  <button
+                    onClick={() => openEmailSendModal(email)}
+                    className={styles.emailButton}
+                  >
+                    Disparar
+                  </button>
+                  {scheduledEmail ? (
+                    <div className={styles.scheduled}>
+                      <p className={styles.scheduledText}>Agendado</p>
+                      <p className={styles.scheduledText}>{scheduledEmail.send_date}</p>
+                      <p className={styles.scheduledText}>{scheduledEmail.send_time}</p>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => openEmailScheduleModal(email)}
+                      className={styles.emailButton}
+                    >
+                      Agendar
+                    </button>
+                  )}
+                </section>
+              </div>
+            );
+          })
+        )}
       </div>
       <EmailViewModal
         isOpen={emailViewModal}
@@ -148,3 +152,4 @@ export default function EmailsList() {
     </>
   );
 }
+
