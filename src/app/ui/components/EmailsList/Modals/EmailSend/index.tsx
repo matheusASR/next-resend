@@ -16,6 +16,7 @@ const EmailSendModal = ({ isOpen, onRequestClose, email }: any) => {
       const response = await api.post(`/emails/resend/${email.id}`);
       if (response.status === 200) {
         alert("Email disparado com sucesso!");
+        onRequestClose()
       }
     } catch (error: any) {
       console.error(

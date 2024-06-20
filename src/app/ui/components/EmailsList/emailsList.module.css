@@ -42,3 +42,13 @@
     display: flex;
     gap: 10px;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 60%;
+  height: 400px;
+  margin-top: 140px;
+}

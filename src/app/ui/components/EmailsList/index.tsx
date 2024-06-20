@@ -50,7 +50,6 @@ export default function EmailsList() {
         const response = await api.get("/emails");
         if (response.status === 200) {
           setEmails(response.data);
-          console.log(response.data);
         }
       } catch (error: any) {
         alert(error);
@@ -63,7 +62,7 @@ export default function EmailsList() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   return (

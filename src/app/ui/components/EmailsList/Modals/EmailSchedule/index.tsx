@@ -120,6 +120,7 @@ const EmailScheduleModal = ({ isOpen, onRequestClose, email }: any) => {
       const response = await api.post(`/emails/schedule/${email.id}`, data);
       if (response.status === 200) {
         alert("Email agendado com sucesso!");
+        onRequestClose()
       }
     } catch (error: any) {
       console.error(
