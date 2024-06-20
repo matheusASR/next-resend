@@ -113,7 +113,7 @@ const EmailScheduleModal = ({ isOpen, onRequestClose, email }: any) => {
     event.preventDefault()
     const data = {
       send_date: `${formData.date_year}/${formData.date_month}/${formData.date_day}`,
-      send_time: `${formData.time_hour}:${formData.time_minute}`,
+      send_time: `${formData.time_hour}:${formData.time_minute}:00`,
       status: "Agendado"
     }
     try {
